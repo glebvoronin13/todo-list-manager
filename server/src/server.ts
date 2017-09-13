@@ -2,12 +2,20 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 
+import { sendErrorResponse } from './helpers';
+import routes from './routes/index';
+import db from './db';
+
 const app = express();
 
-const start = (port) => {
+const start = async (port) => {
+
+    db.init();
+
     initExpress();
 
     // init routes
+    routes.init(app);
 
     initErrorHandling();
 
@@ -28,8 +36,7 @@ const initExpress = () => {
 
 const initErrorHandling = () => {
     app.use((err, req, res, next) => {
-        let message = 'Error';
-        res.status(500).send({error: message});
+        sendErrorResponse(err, res);
     });
 };
 
