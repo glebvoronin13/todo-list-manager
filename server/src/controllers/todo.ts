@@ -26,7 +26,29 @@ const removeTodo = (req, res) => {
     });
 };
 
+const updateTodo = (req, res) => {
+    req.body.sanitized = req.sanitize(req.body.text);
+    console.log(req.body.sanitized);
+    const id = req.params.id;
+    const text = req.body.text;
+    const completed = req.body.completed === 'true';
+    const updateObject: any = {};
+    if ( req.body.text ) {
+        updateObject.text = text;
+    }
+    if ( req.body.completed ) {
+        updateObject.completed = completed;
+    }
+    Todo.findByIdAndUpdate( id, updateObject, { new: true }, function (err, data) {
+        if (err) {
+            return console.error(err);
+        }
+        sendResponse(data, res);
+    });
+};
+
 export default {
     addTodo,
-    removeTodo
+    removeTodo,
+    updateTodo,
 };
