@@ -1,0 +1,23 @@
+:host {
+  display: block;
+  padding: 0 10px;
+  margin: 0 auto;
+  max-width: 768px;
+}
+
+.add-todo-form {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}

@@ -1,3 +1,14 @@
-<p>
-  todos works!
-</p>
+<div>
+  <md-list>
+      <app-todo *ngFor="let todo of messages" [todo]="todo"></app-todo>
+  </md-list>
+
+  <form class="add-todo-form full-width">
+    <md-form-field class="full-width">
+      <input mdInput placeholder="What would you do?" value="">
+    </md-form-field>
+    <div class="button-row">
+      <button md-raised-button class="full-width" color="primary">Add item</button>
+    </div>
+  </form>
+</div>
