@@ -1,0 +1,25 @@
+:host {
+  .on-hover {
+    opacity: 0;
+    transition: opacity .4s ease-in-out;
+  }
+  &:hover {
+    .on-hover {
+      opacity: 1;
+    }
+  }
+}
+
+.icon-red {
+  color: red;
+}
+
+.todo-item-form {
+  display: flex;
+  flex-flow: row nowrap;
+  box-sizing: border-box;
+}
+
+.full-width {
+  width: 100%;
+}

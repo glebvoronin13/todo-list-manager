@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-todo',
@@ -6,12 +6,36 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./todo.component.scss']
 })
 export class TodoComponent implements OnInit {
-
+  @ViewChild('todoInput') inputEl: ElementRef;
   @Input() todo: any;
+  editMode: boolean;
+  isDone: boolean;
   constructor() { }
 
   ngOnInit() {
-    console.log(this.todo);
+  }
+
+  onEdit() {
+    this.editMode = true;
+    this.focusInput();
+  }
+
+  onSave() {
+    this.editMode = false;
+  }
+
+  onDone() {
+    this.isDone = !this.isDone;
+  }
+
+  focusInput() {
+    setTimeout(() => {
+      try {
+        this.inputEl.nativeElement.focus();
+      } catch (e) {
+        // do nothing
+      }
+    });
   }
 
 }

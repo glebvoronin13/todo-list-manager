@@ -1,5 +1,33 @@
 <md-list-item>
-<md-icon mdListIcon>label</md-icon>
-    <input mdInput disabled value="{{ todo }}">
-<md-icon>delete</md-icon>
+    <button
+            (click)="onDone()"
+            md-icon-button
+    >
+        <md-icon *ngIf="!isDone">
+            check_box_outline_blank
+        </md-icon>
+        <md-icon *ngIf="isDone">
+            check_box
+        </md-icon>
+    </button>
+    <form class="todo-item-form full-width">
+        <input #todoInput mdInput [disabled]="!editMode" value="{{ todo }}">
+        <button
+                *ngIf="editMode"
+                (click)="onSave()"
+                md-icon-button
+        >
+            <md-icon class="on-hover icon-edit">check</md-icon>
+        </button>
+    </form>
+    <button
+            *ngIf="!editMode"
+            (click)="onEdit()"
+            md-icon-button
+    >
+        <md-icon class="on-hover icon-edit">mode_edit</md-icon>
+    </button>
+    <button md-icon-button>
+        <md-icon class="on-hover icon-delete">delete</md-icon>
+    </button>
 </md-list-item>
