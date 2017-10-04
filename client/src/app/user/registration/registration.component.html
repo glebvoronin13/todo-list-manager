@@ -1,4 +1,9 @@
-<form class="register-form" (ngSubmit)="onRegister(registerForm.value)" #registerForm="ngForm" >
+<form
+        class="register-form"
+        (ngSubmit)="onRegister(registerForm.value)"
+        #registerForm="ngForm"
+        *ngIf="!success"
+>
 
   <md-progress-spinner
           *ngIf="fetching"
@@ -8,8 +13,8 @@
   >
   </md-progress-spinner>
 
-  <md-card *ngIf="message?.length" class="message">
-    Registration success
+  <md-card *ngIf="error?.length" class="message">
+    {{ error }}
   </md-card>
 
   <md-form-field class="full-width">
@@ -49,3 +54,16 @@
           [disabled]="fetching"
   >Register</button>
 </form>
+
+<md-card *ngIf="success" class="register-form message">
+  <div class="message-wrapper">
+    Registration Success!
+  </div>
+  <div>
+    <a
+            md-raised-button
+            color="accent"
+            routerLink="/"
+    > Click here to start! </a>
+  </div>
+</md-card>

@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrationComponent implements OnInit {
   fetching: boolean;
-  message: string;
+  success: boolean;
+  error: string;
   constructor() { }
 
   ngOnInit() {
@@ -16,7 +17,7 @@ export class RegistrationComponent implements OnInit {
     this.fetching = true;
     console.log(data);
     setTimeout(() => {
-      this.message = 'Registration success';
+      this.success = true;
       this.fetching = false;
     }, 3000);
   }
