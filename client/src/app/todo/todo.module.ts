@@ -5,10 +5,12 @@ import { TodoRoutingModule } from './todo-routing.module';
 import { TodosComponent } from './todos/todos.component';
 import { TodoComponent } from './todo/todo.component';
 import { MaterialModule } from '../material/material.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     TodoRoutingModule,
     MaterialModule,
   ],

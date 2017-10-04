@@ -1,3 +1,51 @@
-<p>
-  registration works!
-</p>
+<form class="register-form" (ngSubmit)="onRegister(registerForm.value)" #registerForm="ngForm" >
+
+  <md-progress-spinner
+          *ngIf="fetching"
+          class="progress"
+          [color]="'primary'"
+          [mode]="'indeterminate'"
+  >
+  </md-progress-spinner>
+
+  <md-card *ngIf="message?.length" class="message">
+    Registration success
+  </md-card>
+
+  <md-form-field class="full-width">
+    <input
+            mdInput
+            ngModel
+            placeholder="E-mail"
+            name="login"
+            [disabled]="fetching"
+    >
+  </md-form-field>
+  <md-form-field class="full-width">
+    <input
+            mdInput
+            ngModel
+            placeholder="Password"
+            type="password"
+            name="password"
+            [disabled]="fetching"
+    >
+  </md-form-field>
+  <md-form-field class="full-width">
+    <input
+            mdInput
+            ngModel
+            placeholder="Confirm Password"
+            type="password"
+            name="password2"
+            [disabled]="fetching"
+    >
+  </md-form-field>
+  <button
+          md-raised-button
+          class="full-width"
+          color="primary"
+          type="submit"
+          [disabled]="fetching"
+  >Register</button>
+</form>
