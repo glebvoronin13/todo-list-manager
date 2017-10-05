@@ -10,12 +10,22 @@
       <app-todo *ngFor="let todo of ( todos | todoFilter:filter )" [todo]="todo"></app-todo>
   </md-list>
 
-  <form class="add-todo-form full-width">
+  <form class="add-todo-form full-width" (ngSubmit)="onAddTodo(todoForm.value)" [formGroup]="todoForm" novalidate>
     <md-form-field class="full-width">
-      <input mdInput placeholder="What would you do?" value="">
+      <input
+              mdInput
+              placeholder="What would you do?"
+              value=""
+              [formControlName]="'todo'"
+              name="todo"
+      >
     </md-form-field>
     <div class="button-row">
-      <button md-raised-button class="full-width" color="primary">Add item</button>
+      <button
+              md-raised-button
+              class="full-width"
+              color="primary"
+      >Add item</button>
     </div>
   </form>
 </div>
