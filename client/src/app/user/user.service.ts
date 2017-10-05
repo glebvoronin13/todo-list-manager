@@ -7,19 +7,25 @@ import { Observer } from 'rxjs/Observer';
 @Injectable()
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   login({ email, password }) {
-    this.http.post(API.login, { email, password }, { withCredentials: true })
-        .subscribe(
-            (data) => {
-              console.log(data);
-            },
-            (err) => {
-              console.log(err);
-            }
-        );
+    return Observable.create((observer: Observer<any>) => {
+      this.http.post(API.login, { email, password }, { withCredentials: true })
+          .subscribe(
+              (data) => {
+                observer.next(data);
+                observer.complete();
+              },
+              (err) => {
+                observer.error(err);
+                observer.complete();
+              }
+          );
+    });
   }
+
   logout() {
     this.http.delete(API.login, { withCredentials: true })
         .subscribe(
@@ -31,9 +37,14 @@ export class UserService {
             }
         );
   }
+
   createUser({ email, password }) {
     return Observable.create((observer: Observer<any>) => {
-      this.http.post(API.register, { email, password, password2: password }, { withCredentials: true })
+      this.http.post(API.register, {
+        email,
+        password,
+        password2: password
+      }, { withCredentials: true })
           .subscribe(
               (data) => {
                 observer.next(data);
