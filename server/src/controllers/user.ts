@@ -43,7 +43,7 @@ const login = (req, res, next) => {
       return next(err);
     }
     if (!user) {
-      return sendErrorResponse( res, 401, 'User not found' );
+      return sendErrorResponse( res, 401, 'User not found or wrong password' );
     }
     req.logIn(user, (error) => {
       if (error) {
