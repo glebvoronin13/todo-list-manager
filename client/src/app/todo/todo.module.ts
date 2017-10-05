@@ -6,6 +6,7 @@ import { TodosComponent } from './todos/todos.component';
 import { TodoComponent } from './todo/todo.component';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule } from '@angular/forms';
+import { TodoFilterPipe } from './todo-filter.pipe';
 
 @NgModule({
   imports: [
@@ -14,6 +15,6 @@ import { FormsModule } from '@angular/forms';
     TodoRoutingModule,
     MaterialModule,
   ],
-  declarations: [TodosComponent, TodoComponent]
+  declarations: [TodosComponent, TodoComponent, TodoFilterPipe]
 })
 export class TodoModule { }

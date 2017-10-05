@@ -6,10 +6,8 @@
     <md-tab label="Not done"></md-tab>
   </md-tab-group>
 
-  <h3>{{ filter }}</h3>
-
   <md-list>
-      <app-todo *ngFor="let todo of todos" [todo]="todo"></app-todo>
+      <app-todo *ngFor="let todo of ( todos | todoFilter:filter )" [todo]="todo"></app-todo>
   </md-list>
 
   <form class="add-todo-form full-width">
