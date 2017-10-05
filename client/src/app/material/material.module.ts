@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
 import {
-  MdButtonModule, MatInputModule, MdFormFieldModule, MatListModule, MatIconModule,
+  MdButtonModule,
+  MatInputModule,
+  MdFormFieldModule,
+  MatListModule,
+  MatIconModule,
   MatToolbarModule,
   MatMenuModule,
   MatProgressSpinnerModule,
-  MatCardModule
+  MatCardModule,
+  MatTabsModule
 } from '@angular/material';
 
 const modules = [
@@ -17,6 +22,7 @@ const modules = [
   MatMenuModule,
   MatProgressSpinnerModule,
   MatCardModule,
+  MatTabsModule,
 ];
 
 @NgModule({

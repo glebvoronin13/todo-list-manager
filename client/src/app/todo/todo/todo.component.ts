@@ -25,7 +25,7 @@ export class TodoComponent implements OnInit {
   }
 
   onDone() {
-    this.isDone = !this.isDone;
+    this.todo.completed = !this.todo.completed;
   }
 
   focusInput() {

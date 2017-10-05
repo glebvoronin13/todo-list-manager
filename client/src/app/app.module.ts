@@ -9,14 +9,20 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { UserService } from './user/user.service';
+import { TodoService } from './todo/todo.service';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
     MaterialModule,
@@ -24,7 +30,10 @@ import { FormsModule } from '@angular/forms';
     UserModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+      UserService,
+      TodoService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

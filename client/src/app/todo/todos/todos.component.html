@@ -1,6 +1,15 @@
 <div>
+
+  <md-tab-group (selectChange)="onSelectFilter($event?.index)">
+    <md-tab label="All"></md-tab>
+    <md-tab label="Done"></md-tab>
+    <md-tab label="Not done"></md-tab>
+  </md-tab-group>
+
+  <h3>{{ filter }}</h3>
+
   <md-list>
-      <app-todo *ngFor="let todo of messages" [todo]="todo"></app-todo>
+      <app-todo *ngFor="let todo of todos" [todo]="todo"></app-todo>
   </md-list>
 
   <form class="add-todo-form full-width">

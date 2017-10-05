@@ -1,0 +1,13 @@
+<md-toolbar color="primary">
+  <a md-icon-button routerLink="/">Todo app</a>
+  <span class="spacer"></span>
+
+  <button md-icon-button [mdMenuTriggerFor]="menu">
+    <md-icon class="profile-icon">account_circle</md-icon>
+  </button>
+  <md-menu #menu="mdMenu">
+    <a md-menu-item routerLink="/login">Login</a>
+    <a md-menu-item routerLink="/register">Register</a>
+    <button md-menu-item (click)="onLogout()">Logout</button>
+  </md-menu>
+</md-toolbar>

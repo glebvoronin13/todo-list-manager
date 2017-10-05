@@ -3,15 +3,15 @@
             (click)="onDone()"
             md-icon-button
     >
-        <md-icon *ngIf="!isDone">
+        <md-icon *ngIf="!todo?.completed">
             check_box_outline_blank
         </md-icon>
-        <md-icon *ngIf="isDone">
+        <md-icon *ngIf="todo?.completed">
             check_box
         </md-icon>
     </button>
     <form class="todo-item-form full-width">
-        <input #todoInput mdInput [disabled]="!editMode" value="{{ todo }}">
+        <input #todoInput mdInput [disabled]="!editMode" value="{{ todo.text }}">
         <button
                 *ngIf="editMode"
                 (click)="onSave()"
