@@ -19,7 +19,11 @@ export class UserService {
                 observer.complete();
               },
               (err) => {
-                observer.error(err);
+                try {
+                  observer.error(JSON.parse(err.error).message);
+                } catch (e) {
+                  observer.error('Unknown server error');
+                }
                 observer.complete();
               }
           );
