@@ -54,7 +54,7 @@ const initExpress = () => {
 
 const initErrorHandling = () => {
   app.use((err, req, res, next) => {
-    sendErrorResponse(err, res);
+    sendErrorResponse(res);
   });
 };
 
