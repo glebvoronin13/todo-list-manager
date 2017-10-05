@@ -34,9 +34,16 @@ const start = async (port) => {
 const initExpress = () => {
   app.use(bodyParser.json()); // get information from html forms
   app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(cors());
+  app.use(cors({
+    origin: function (origin, callback) {
+      callback(null, true);
+    },
+    credentials: true
+  }));
   app.use(session({
-    secret: 'keyboard cat',
+    secret: 'cookie_secret',
+    name: 'cookie_name',
+    proxy: true,
     resave: true,
     saveUninitialized: true
   }));

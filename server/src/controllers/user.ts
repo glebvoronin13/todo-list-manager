@@ -56,7 +56,13 @@ const login = (req, res, next) => {
   })(req, res, next);
 };
 
+const logout = (req, res, next) => {
+  req.logout();
+  sendResponse('logged out', res);
+};
+
 export default {
   addUser,
   login,
+  logout,
 };
