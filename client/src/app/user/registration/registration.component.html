@@ -1,7 +1,7 @@
 <form
         class="register-form"
         (ngSubmit)="onRegister(registerForm.value)"
-        #registerForm="ngForm"
+        [formGroup]="registerForm"
         *ngIf="!success"
 >
   <md-form-field class="full-width">
@@ -11,10 +11,16 @@
             placeholder="E-mail"
             type="email"
             name="email"
-            [disabled]="fetching"
             (focus)="error = null"
             (change)="error = null"
+            [formControlName]="'email'"
     >
+    <md-error *ngIf="email?.hasError('pattern')">
+      Please enter a valid email address
+    </md-error>
+    <md-error *ngIf="email?.hasError('required')">
+      Email is <strong>required</strong>
+    </md-error>
   </md-form-field>
   <md-form-field class="full-width">
     <input
@@ -23,10 +29,13 @@
             placeholder="Password"
             type="password"
             name="password"
-            [disabled]="fetching"
             (focus)="error = null"
             (change)="error = null"
+            [formControlName]="'password'"
     >
+    <md-error *ngIf="password.hasError('required')">
+      Password is <strong>required</strong>
+    </md-error>
   </md-form-field>
   <md-form-field class="full-width">
     <input
@@ -35,10 +44,13 @@
             placeholder="Confirm Password"
             type="password"
             name="password2"
-            [disabled]="fetching"
             (focus)="error = null"
             (change)="error = null"
+            [formControlName]="'password2'"
     >
+    <md-error *ngIf="password2.hasError('required')">
+      Password confirmation is <strong>required</strong>
+    </md-error>
   </md-form-field>
   <button
           md-raised-button
@@ -71,6 +83,6 @@
             md-raised-button
             color="accent"
             routerLink="/"
-    > Sign-in to start! </a>
+    > Click here to start! </a>
   </div>
 </md-card>

@@ -68,11 +68,11 @@ export class UserService {
       this.http.post(API.register, {
         email,
         password,
-        password2: password
       }, { withCredentials: true })
           .subscribe(
               (data) => {
-                observer.next(new User(data));
+                this.userProfile = new User(data);
+                observer.next(this.userProfile);
                 observer.complete();
               },
               (err) => {

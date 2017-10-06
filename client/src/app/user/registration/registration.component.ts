@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IRegisterData } from '../../shared/interfaces/i-register-data';
 
 @Component({
@@ -9,6 +9,7 @@ import { IRegisterData } from '../../shared/interfaces/i-register-data';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
+  registerForm: FormGroup;
   fetching: boolean;
   success: boolean;
   error: string;
@@ -18,13 +19,18 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit() {
     const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    this.emailFormControl = new FormControl('', [
-      Validators.required,
-      Validators.pattern(EMAIL_REGEX),
-    ]);
-    this.passwordFormControl = new FormControl('', [
-      Validators.required,
-    ]);
+    this.registerForm = new FormGroup ({
+      email: new FormControl('', [
+        Validators.required,
+        Validators.pattern(EMAIL_REGEX),
+      ]),
+      password: new FormControl('', [
+        Validators.required,
+      ]),
+      password2: new FormControl('', [
+        Validators.required,
+      ]),
+    });
   }
   onRegister(data: IRegisterData) {
     if ( data.password !== data.password2 ) {
@@ -44,5 +50,9 @@ export class RegistrationComponent implements OnInit {
             }
         );
   }
+
+  get email() { return this.registerForm.get('email'); }
+  get password() { return this.registerForm.get('password'); }
+  get password2() { return this.registerForm.get('password2'); }
 
 }
