@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoComponent } from '../todo/todo.component';
 import { TodoService } from '../todo.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Todo } from '../../shared/models/todo';
 
 @Component({
   selector: 'app-todos',
@@ -8,57 +10,19 @@ import { TodoService } from '../todo.service';
   styleUrls: ['./todos.component.scss']
 })
 export class TodosComponent implements OnInit {
-  todos: any[];
+  todoList: Todo[];
   filter: string;
+  todoForm: FormGroup;
   constructor(private todoService: TodoService) { }
 
   ngOnInit() {
+    this.todoForm = new FormGroup ({
+      todo: new FormControl('', [
+        Validators.required,
+      ]),
+    });
     this.filter = 'ALL';
-    this.todos = [
-      {
-        id: 79387198371,
-        text: 'Todo 1',
-        completed: true,
-      },
-      {
-        id: 79387198371,
-        text: 'Todo 2',
-        completed: false,
-      },
-      {
-        id: 79387198371,
-        text: 'Todo 3',
-        completed: true,
-      },
-      {
-        id: 79387198371,
-        text: 'Todo 4',
-        completed: false,
-      },
-      {
-        id: 79387198371,
-        text: 'Todo 5',
-        completed: false,
-      },
-      {
-        id: 79387198371,
-        text: 'Todo 6',
-        completed: true,
-      },
-      {
-        id: 79387198371,
-        text: 'Todo 7',
-        completed: false,
-      },
-    ];
-    this.todoService.getTodos().subscribe(
-        (res) => {
-          console.log(res);
-        },
-        (err) => {
-          console.log(err);
-        }
-    );
+    this.fetchTodoList();
   }
   onSelectFilter(index) {
     switch (index) {
@@ -74,6 +38,30 @@ export class TodosComponent implements OnInit {
       default:
         break;
     }
+  }
+  onAddTodo(value) {
+    const text = value.todo;
+    this.todoService.addTodo(text).subscribe(
+        (res) => {
+          console.log(res);
+          this.todoForm.reset();
+          this.fetchTodoList();
+        },
+        (err) => {
+          console.log(err);
+        }
+    );
+  }
+  fetchTodoList() {
+    this.todoService.getTodos().subscribe(
+        (res) => {
+          this.todoList = res;
+        },
+        (err) => {
+          this.todoList = [];
+          console.log(err);
+        }
+    );
   }
 
 }

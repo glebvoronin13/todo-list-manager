@@ -5,4 +5,5 @@ export const API = {
   register: baseUrl + '/user',
   logout: baseUrl + '/session',
   todos: baseUrl + '/todos',
+  todo: baseUrl + '/todo',
 };

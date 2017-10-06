@@ -1,6 +1,7 @@
 <md-list-item>
     <button
             (click)="onDone()"
+            *ngIf="!editMode"
             md-icon-button
     >
         <md-icon *ngIf="!todo?.completed">
@@ -27,7 +28,10 @@
     >
         <md-icon class="on-hover icon-edit">mode_edit</md-icon>
     </button>
-    <button md-icon-button>
+    <button
+            md-icon-button
+            (click)="onRemove(todo?.id)"
+    >
         <md-icon class="on-hover icon-delete">delete</md-icon>
     </button>
 </md-list-item>

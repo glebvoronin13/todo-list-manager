@@ -1,4 +1,8 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component, ElementRef, EventEmitter, Input, OnInit, Output,
+  ViewChild
+} from '@angular/core';
+import { TodoService } from '../todo.service';
 
 @Component({
   selector: 'app-todo',
@@ -10,7 +14,9 @@ export class TodoComponent implements OnInit {
   @Input() todo: any;
   editMode: boolean;
   isDone: boolean;
-  constructor() { }
+  @Output()
+  onAction: EventEmitter<string> = new EventEmitter<string>();
+  constructor(private todoService: TodoService) { }
 
   ngOnInit() {
   }
@@ -26,6 +32,17 @@ export class TodoComponent implements OnInit {
 
   onDone() {
     this.todo.completed = !this.todo.completed;
+  }
+  onRemove(id) {
+    this.todoService.removeTodo(id).subscribe(
+        (res) => {
+          console.log(res);
+          this.onAction.emit('REMOVE');
+        },
+        (err) => {
+          console.log(err);
+        }
+    );
   }
 
   focusInput() {
