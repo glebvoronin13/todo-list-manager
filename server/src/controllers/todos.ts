@@ -63,7 +63,7 @@ const updateTodo = (req, res) => {
       } else if ( req.body.completed.toString() === 'false' ) {
         completed = false;
       }
-    } catch(e) {
+    } catch (e) {
       completed = null;
     }
     const updateObject: any = {};

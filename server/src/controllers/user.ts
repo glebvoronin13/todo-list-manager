@@ -62,8 +62,23 @@ const logout = (req, res, next) => {
   });
 };
 
+const checkUser = (req, res) => {
+  if (req.user && req.user._id) {
+    const uid = req.user._id;
+    User.findById(uid, function (err, data) {
+      if (err) {
+        return sendErrorResponse(res, 404, err);
+      }
+      sendResponse(data, res);
+    });
+  } else {
+    return sendErrorResponse(res, 401, 'Not Authorised');
+  }
+};
+
 export default {
   addUser,
   login,
   logout,
+  checkUser,
 };
