@@ -3,6 +3,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { TodoService } from '../todo.service';
+import { Todo } from '../../shared/models/todo';
 
 @Component({
   selector: 'app-todo',
@@ -11,7 +12,7 @@ import { TodoService } from '../todo.service';
 })
 export class TodoComponent implements OnInit {
   @ViewChild('todoInput') inputEl: ElementRef;
-  @Input() todo: any;
+  @Input() todo: Todo;
   editMode: boolean;
   @Output()
   onAction: EventEmitter<string> = new EventEmitter<string>();
@@ -60,11 +61,9 @@ export class TodoComponent implements OnInit {
   onRemove(id) {
     this.todoService.removeTodo(id).subscribe(
         (res) => {
-          console.log(res);
           this.onAction.emit('REMOVE');
         },
         (err) => {
-          console.log(err);
           this.onAction.emit('REMOVE_ERROR');
         }
     );

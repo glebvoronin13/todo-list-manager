@@ -4,6 +4,7 @@ import { Observer } from 'rxjs/Observer';
 import { API } from '../app.constants';
 import { HttpClient } from '@angular/common/http';
 import { Todo } from '../shared/models/todo';
+import { ITodo } from '../shared/interfaces/i-todo';
 
 @Injectable()
 export class TodoService {
@@ -13,7 +14,7 @@ export class TodoService {
     return Observable.create((observer: Observer<any>) => {
       this.http.get(API.todos, { withCredentials: true })
           .subscribe(
-              (res: any) => {
+              (res: Todo[]) => {
                 const todos: Todo[] = [];
                 for (const item of res) {
                   todos.push(new Todo(item));
@@ -65,7 +66,7 @@ export class TodoService {
     return this.updateTodo({ id, checked });
   }
   private updateTodo({ id, checked, text }: any) {
-    const body: any = {};
+    const body: ITodo = {};
     if ( checked === false ) {
       body.completed = false;
     } else if ( checked === true ) {
