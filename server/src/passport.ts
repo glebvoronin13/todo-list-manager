@@ -6,7 +6,6 @@ import User from './models/User';
 const LocalStrategy = passportLocal.Strategy;
 
 const init = () => {
-  console.log('init pass');
   passport.use(new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'

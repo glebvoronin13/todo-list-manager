@@ -1,8 +1,5 @@
 export const sendResponse = (data, res) => {
-  res.status(200).send({
-    status: 'ok',
-    data
-  });
+  res.status(200).send(data);
 };
 
 export const sendErrorResponse = (res, code?, msg?) => {

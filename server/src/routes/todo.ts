@@ -1,3 +1,4 @@
+/*
 import todoController from '../controllers/todo';
 
 const init = ({ app, router }) => {
@@ -11,3 +12,4 @@ const init = ({ app, router }) => {
 export default {
     init
 };
+*/

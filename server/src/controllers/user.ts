@@ -2,6 +2,7 @@ import * as bcrypt from 'bcryptjs';
 import * as passport from 'passport';
 import User from '../models/User';
 import { sendResponse, sendErrorResponse } from '../helpers';
+import { PublicUser } from '../models/PublicUser';
 
 const addUser = (req, res) => {
   const email = req.body.email;
@@ -20,15 +21,15 @@ const addUser = (req, res) => {
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(newUser.password, salt, function (cryptErr, hash) {
       if (cryptErr) {
-        console.log(cryptErr);
+        sendErrorResponse(res, 500, cryptErr);
+        return;
       }
       newUser.password = hash;
       newUser.save((saveError) => {
         if (saveError) {
-          console.log(saveError);
-          return;
+          return sendErrorResponse(res, 500, saveError);
         } else {
-          sendResponse('success', res);
+          return sendResponse(new PublicUser(newUser), res);
         }
       });
     });
@@ -49,7 +50,7 @@ const login = (req, res, next) => {
       if (error) {
         return next(error);
       }
-      sendResponse('success', res);
+      sendResponse(new PublicUser(user), res);
     });
   })(req, res, next);
 };
@@ -57,7 +58,7 @@ const login = (req, res, next) => {
 const logout = (req, res, next) => {
   req.logout();
   req.session.destroy(() => {
-    sendResponse('Logged out', res);
+    sendResponse(null, res);
   });
 };
 
