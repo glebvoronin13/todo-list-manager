@@ -1,13 +1,33 @@
 <md-toolbar color="primary">
-  <a md-icon-button routerLink="/">Todo app</a>
-  <span class="spacer"></span>
+    <a md-icon-button routerLink="/">Todo app</a>
+    <span class="spacer"></span>
 
-  <button md-icon-button [mdMenuTriggerFor]="menu">
-    <md-icon class="profile-icon">account_circle</md-icon>
-  </button>
-  <md-menu #menu="mdMenu">
-    <a md-menu-item routerLink="/login">Login</a>
-    <a md-menu-item routerLink="/register">Register</a>
-    <button md-menu-item (click)="onLogout()">Logout</button>
-  </md-menu>
+    <button md-icon-button [mdMenuTriggerFor]="menu">
+        <md-icon class="profile-icon">account_circle</md-icon>
+    </button>
+    <md-menu #menu="mdMenu">
+        <a
+                md-menu-item
+                routerLink="/login"
+                *ngIf="!user"
+        >Login</a>
+        <a
+                md-menu-item
+                routerLink="/register"
+                *ngIf="!user"
+        >Register</a>
+        <div
+                class="user-email"
+                md-menu-item
+                *ngIf="user"
+        >
+            {{ user.email }}
+        </div>
+        <button
+                md-menu-item
+                (click)="onLogout()"
+                *ngIf="user"
+        >Logout
+        </button>
+    </md-menu>
 </md-toolbar>

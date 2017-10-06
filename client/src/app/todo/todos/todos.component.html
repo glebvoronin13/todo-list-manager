@@ -10,17 +10,22 @@
       <app-todo
               *ngFor="let todo of ( todoList | todoFilter:filter )"
               [todo]="todo"
-              (onAction)="fetchTodoList()"
+              (onAction)="onChangeTodo($event)"
       ></app-todo>
   </md-list>
 
-  <form class="add-todo-form full-width" (ngSubmit)="onAddTodo(todoForm.value)" [formGroup]="todoForm" novalidate>
+  <form
+          class="add-todo-form full-width"
+          (ngSubmit)="onAddTodo(todoForm.value)"
+          [formGroup]="todoForm"
+          *ngIf="showForm"
+          novalidate
+  >
     <md-form-field class="full-width">
       <input
               mdInput
               ngModel
               placeholder="What would you do?"
-              value=""
               type="text"
               [formControlName]="'todo'"
               name="todo"
@@ -32,7 +37,7 @@
               md-raised-button
               class="full-width"
               color="primary"
-              [disabled]="todoForm.errors"
+              [disabled]="!todoForm.valid"
       >Add item</button>
     </div>
   </form>

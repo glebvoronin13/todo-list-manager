@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './user/user.service';
 import { TodoService } from './todo/todo.service';
 import { HeaderComponent } from './header/header.component';
+import { UserGuard } from './shared/user.guard';
+import { GuestGuard } from './shared/guest.guard';
 
 @NgModule({
   declarations: [
@@ -31,8 +33,10 @@ import { HeaderComponent } from './header/header.component';
     AppRoutingModule,
   ],
   providers: [
-      UserService,
-      TodoService,
+    UserService,
+    TodoService,
+    UserGuard,
+    GuestGuard,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { FormControl, Validators } from '@angular/forms';
+import { IRegisterData } from '../../shared/interfaces/i-register-data';
 
 @Component({
   selector: 'app-registration',
@@ -25,17 +26,21 @@ export class RegistrationComponent implements OnInit {
       Validators.required,
     ]);
   }
-  onRegister(data) {
+  onRegister(data: IRegisterData) {
+    if ( data.password !== data.password2 ) {
+      return this.error = 'Passwords does not match';
+    }
     this.fetching = true;
-    console.log(data);
-    this.userService.createUser( { email: data.login, password: data.password } )
+    this.userService.createUser( { email: data.email, password: data.password } )
         .subscribe(
             (res) => {
               this.fetching = false;
               this.success = true;
+              this.error = null;
             },
             (err) => {
               this.fetching = false;
+              this.error = err;
             }
         );
   }

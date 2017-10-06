@@ -13,7 +13,6 @@ export class TodoComponent implements OnInit {
   @ViewChild('todoInput') inputEl: ElementRef;
   @Input() todo: any;
   editMode: boolean;
-  isDone: boolean;
   @Output()
   onAction: EventEmitter<string> = new EventEmitter<string>();
   constructor(private todoService: TodoService) { }
@@ -32,7 +31,7 @@ export class TodoComponent implements OnInit {
           this.onAction.emit('EDIT');
         },
         (err) => {
-          console.log(err);
+          this.onAction.emit('EDIT_ERROR');
         },
         () => {
           this.editMode = false;
@@ -42,12 +41,13 @@ export class TodoComponent implements OnInit {
 
   onDone() {
     this.todo.completed = !this.todo.completed;
+    const state = ( this.todo.completed ) ? 'DONE' : 'NOT_DONE';
     this.todoService.toggleTodo(this.todo.id, this.todo.completed).subscribe(
         () => {
-          this.onAction.emit('DONE');
+          this.onAction.emit(state);
         },
         (err) => {
-          console.log(err);
+          this.onAction.emit(`${state}_ERROR`);
         },
         () => {
           this.editMode = false;
@@ -62,6 +62,7 @@ export class TodoComponent implements OnInit {
         },
         (err) => {
           console.log(err);
+          this.onAction.emit('REMOVE_ERROR');
         }
     );
   }
