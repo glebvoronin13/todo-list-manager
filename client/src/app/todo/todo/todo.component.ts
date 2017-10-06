@@ -26,12 +26,33 @@ export class TodoComponent implements OnInit {
     this.focusInput();
   }
 
-  onSave() {
-    this.editMode = false;
+  onSave(text) {
+    this.todoService.editTodo(this.todo.id, text).subscribe(
+        () => {
+          this.onAction.emit('EDIT');
+        },
+        (err) => {
+          console.log(err);
+        },
+        () => {
+          this.editMode = false;
+        }
+    );
   }
 
   onDone() {
     this.todo.completed = !this.todo.completed;
+    this.todoService.toggleTodo(this.todo.id, this.todo.completed).subscribe(
+        () => {
+          this.onAction.emit('DONE');
+        },
+        (err) => {
+          console.log(err);
+        },
+        () => {
+          this.editMode = false;
+        }
+    );
   }
   onRemove(id) {
     this.todoService.removeTodo(id).subscribe(

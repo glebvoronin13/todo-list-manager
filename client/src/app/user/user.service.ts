@@ -12,7 +12,7 @@ export class UserService {
 
   login({ email, password }) {
     return Observable.create((observer: Observer<any>) => {
-      this.http.post(API.login, { email, password }, { withCredentials: true })
+      this.http.post(API.session, { email, password }, { withCredentials: true })
           .subscribe(
               (data) => {
                 observer.next(data);
@@ -31,7 +31,7 @@ export class UserService {
   }
 
   logout() {
-    this.http.delete(API.login, { withCredentials: true })
+    this.http.delete(API.session, { withCredentials: true })
         .subscribe(
             (data) => {
               console.log(data);

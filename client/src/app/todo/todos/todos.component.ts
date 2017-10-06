@@ -43,7 +43,6 @@ export class TodosComponent implements OnInit {
     const text = value.todo;
     this.todoService.addTodo(text).subscribe(
         (res) => {
-          console.log(res);
           this.todoForm.reset();
           this.fetchTodoList();
         },

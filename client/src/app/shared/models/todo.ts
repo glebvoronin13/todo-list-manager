@@ -1,8 +1,8 @@
 import { Id } from '../interfaces/id';
 
 export class Todo {
-  id: Id;
-  uid: Id;
+  id: string;
+  uid: string;
   text: string;
   completed: boolean;
 

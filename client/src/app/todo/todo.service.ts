@@ -15,7 +15,7 @@ export class TodoService {
           .subscribe(
               (res: any) => {
                 const todos: Todo[] = [];
-                for (const item of res.data) {
+                for (const item of res) {
                   todos.push(new Todo(item));
                 }
                 observer.next(todos);
@@ -30,10 +30,10 @@ export class TodoService {
   }
   addTodo(text) {
     return Observable.create((observer: Observer<any>) => {
-      this.http.post(API.todo, { text }, { withCredentials: true })
+      this.http.post(API.todos, { text }, { withCredentials: true })
           .subscribe(
               (data) => {
-                observer.next(data);
+                observer.next(new Todo(data));
                 observer.complete();
               },
               (err) => {
@@ -45,7 +45,7 @@ export class TodoService {
   }
   removeTodo(id) {
     return Observable.create((observer: Observer<any>) => {
-      this.http.delete(`${API.todo}/${id}`, { withCredentials: true })
+      this.http.delete(`${API.todos}/${id}`, { withCredentials: true })
           .subscribe(
               (data) => {
                 observer.next(data);
@@ -67,18 +67,18 @@ export class TodoService {
   private updateTodo({ id, checked, text }: any) {
     const body: any = {};
     if ( checked === false ) {
-      body.checked = false;
+      body.completed = false;
     } else if ( checked === true ) {
-      body.checked = true;
+      body.completed = true;
     }
     if ( text && text.length ) {
       body.text = text;
     }
     return Observable.create((observer: Observer<any>) => {
-      this.http.put(`${API.todo}/${id}`, body, { withCredentials: true })
+      this.http.put(`${API.todos}/${id}`, body, { withCredentials: true })
           .subscribe(
               (data) => {
-                observer.next(data);
+                observer.next(new Todo(data));
                 observer.complete();
               },
               (err) => {

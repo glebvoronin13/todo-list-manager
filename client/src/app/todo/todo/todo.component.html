@@ -15,7 +15,7 @@
         <input #todoInput mdInput [disabled]="!editMode" value="{{ todo.text }}">
         <button
                 *ngIf="editMode"
-                (click)="onSave()"
+                (click)="onSave(todoInput.value)"
                 md-icon-button
         >
             <md-icon class="on-hover icon-edit">check</md-icon>
