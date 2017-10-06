@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="todoList !== null">
 
   <md-tab-group (selectChange)="onSelectFilter($event?.index)">
     <md-tab label="All"></md-tab>
@@ -29,16 +29,27 @@
               type="text"
               [formControlName]="'todo'"
               name="todo"
-              required
+              #todoItem
       >
     </md-form-field>
-    <div class="button-row">
+    <div
+            class="button-row"
+            mdTooltip="Todo item should not be empty"
+            [mdTooltipDisabled]="todoItem?.value?.length > 0"
+    >
       <button
               md-raised-button
               class="full-width"
               color="primary"
-              [disabled]="!todoForm.valid"
+              [disabled]="!todoItem?.value?.length"
       >Add item</button>
     </div>
   </form>
 </div>
+<md-progress-spinner
+        *ngIf="todoList === null"
+        class="progress"
+        [color]="'primary'"
+        [mode]="'indeterminate'"
+>
+</md-progress-spinner>

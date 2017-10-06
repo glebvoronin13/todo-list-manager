@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
     });
   }
   onLogin(data) {
+    this.error = null;
     this.fetching = true;
     this.userService.login({
       email: data.email,

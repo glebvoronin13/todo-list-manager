@@ -1,5 +1,3 @@
-import { Id } from '../interfaces/id';
-
 export class Todo {
   id: string;
   uid: string;

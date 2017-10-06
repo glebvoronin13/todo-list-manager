@@ -26,6 +26,9 @@ export class TodoComponent implements OnInit {
   }
 
   onSave(text) {
+    if ( !text || !text.length ) {
+      return this.onAction.emit('EDIT_CANCEL');
+    }
     this.todoService.editTodo(this.todo.id, text).subscribe(
         () => {
           this.onAction.emit('EDIT');

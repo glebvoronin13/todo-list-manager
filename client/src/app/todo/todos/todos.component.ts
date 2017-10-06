@@ -21,11 +21,10 @@ export class TodosComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.todoList = null;
     this.showForm = true;
     this.todoForm = new FormGroup ({
-      todo: new FormControl('', [
-        Validators.required,
-      ]),
+      todo: new FormControl(''),
     });
     this.filter = 'ALL';
     this.fetchTodoList();
@@ -93,6 +92,8 @@ export class TodosComponent implements OnInit {
         return this.showSnackBar('Item', 'Saved');
       case 'EDIT_ERROR':
         return this.showSnackBar('Item', 'Save Failed');
+      case 'EDIT_CANCEL':
+        return this.showSnackBar('Item', 'Save Canceled');
       default:
         return null;
     }

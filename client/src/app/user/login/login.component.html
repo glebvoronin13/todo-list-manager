@@ -1,10 +1,13 @@
+<header class="page-head">
+  <span>Please Sign-in or</span>
+  <a md-icon-button routerLink="/register">register</a>
+</header>
 <form
         class="login-form"
         (ngSubmit)="onLogin(loginForm.value)"
         [formGroup]="loginForm"
         novalidate
 >
-
   <md-form-field class="full-width">
     <input
             mdInput
@@ -42,7 +45,7 @@
           md-raised-button
           class="full-width"
           color="primary"
-          [disabled]="loginForm.errors || fetching"
+          [disabled]="!loginForm.valid || fetching"
   >Sign-in</button>
 
   <md-progress-spinner

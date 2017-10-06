@@ -10,7 +10,22 @@
   width: 100%;
 }
 
+.progress {
+  margin: 0 auto;
+}
+
 .message {
   margin-top: 20px;
   text-align: center;
+}
+
+.page-head {
+  text-align: center;
+  padding-top: 30px;
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  span {
+    color: #666;
+  }
 }
