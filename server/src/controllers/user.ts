@@ -13,28 +13,36 @@ const addUser = (req, res) => {
 
   const errors = req.validationErrors();
 
-  const newUser: any = new User({
-    email: email,
-    password: password,
-  });
-
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(newUser.password, salt, function (cryptErr, hash) {
-      if (cryptErr) {
-        sendErrorResponse(res, 500, cryptErr);
-        return;
-      }
-      newUser.password = hash;
-      newUser.save((saveError) => {
-        if (saveError) {
-          return sendErrorResponse(res, 500, saveError);
-        } else {
-          return sendResponse(new PublicUser(newUser), res);
-        }
+  User.find({ email }, (error, user) => {
+    if ( error ) {
+      return sendErrorResponse(res, 500, 'Server error');
+    }
+    if ( user && user.length ) {
+      return sendErrorResponse(res, 500, 'Email is already taken');
+    } else {
+      const newUser: any = new User({
+        email: email,
+        password: password,
       });
-    });
-  });
 
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, function (cryptErr, hash) {
+          if (cryptErr) {
+            sendErrorResponse(res, 500, cryptErr);
+            return;
+          }
+          newUser.password = hash;
+          newUser.save((saveError) => {
+            if (saveError) {
+              return sendErrorResponse(res, 500, saveError);
+            } else {
+              return sendResponse(new PublicUser(newUser), res);
+            }
+          });
+        });
+      });
+    }
+  });
 };
 
 const login = (req, res, next) => {
@@ -58,7 +66,7 @@ const login = (req, res, next) => {
 const logout = (req, res, next) => {
   req.logout();
   req.session.destroy(() => {
-    sendResponse(null, res);
+    sendResponse({ message: 'Logged out' }, res);
   });
 };
 

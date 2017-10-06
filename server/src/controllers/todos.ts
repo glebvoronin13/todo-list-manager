@@ -41,7 +41,10 @@ const removeTodo = (req, res) => {
     const uid = req.user._id;
     Todo.findOneAndRemove({ _id: id, uid: uid }, function (err, data) {
       if (err) {
-        return console.error(err);
+        return sendErrorResponse(res, 404, 'Not found');
+      }
+      if (!data) {
+        return sendErrorResponse(res, 404, 'Not found');
       }
       sendResponse(data, res);
     });
