@@ -4,7 +4,7 @@ import User from '../models/User';
 import { sendResponse, sendErrorResponse } from '../helpers';
 import { PublicUser } from '../models/PublicUser';
 
-const addUser = (req, res) => {
+const addUser = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
   req.checkBody('email', 'Email is required').notEmpty();
@@ -36,7 +36,8 @@ const addUser = (req, res) => {
             if (saveError) {
               return sendErrorResponse(res, 500, saveError);
             } else {
-              return sendResponse(new PublicUser(newUser), res);
+              // return sendResponse(new PublicUser(newUser), res);
+              login( req, res, next );
             }
           });
         });
