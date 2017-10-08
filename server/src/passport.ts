@@ -17,10 +17,9 @@ const init = () => {
         if (!user) {
           return done(null, false, { message: 'No user found' });
         }
-
         // Match Password
-        bcrypt.compare(password, user.password, function(err, isMatch){
-          if (err) { throw err; }
+        bcrypt.compare(password, user.password, function(cmpError, isMatch){
+          if (cmpError) { throw cmpError; }
           if (isMatch) {
             return done(null, user);
           } else {
@@ -39,8 +38,6 @@ const init = () => {
         done(err, user);
       });
     });
-
-
 };
 
 export default {

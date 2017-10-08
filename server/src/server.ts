@@ -12,27 +12,25 @@ import db from './db';
 const app = express();
 
 const start = async (port) => {
-
-  db.init();
-
-  initExpress();
-
-  // init routes
-  routes.init(app);
-
-  initErrorHandling();
-
-  // init db
-
   return new Promise((resolve, reject) => {
-    app.listen(port, () => {
-      return resolve(port);
-    });
+    db.init().then(
+        () => {
+          initExpress();
+          routes.init(app);
+          initErrorHandling();
+          app.listen(port, () => {
+            return resolve(port);
+          });
+        },
+        (err) => {
+          console.log('Mongo connection err: ', err);
+        }
+    );
   });
 };
 
 const initExpress = () => {
-  app.use(bodyParser.json()); // get information from html forms
+  app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(cors({
     origin: function (origin, callback) {
@@ -42,7 +40,7 @@ const initExpress = () => {
   }));
   app.use(session({
     secret: 'cookie_secret',
-    name: 'cookie_name',
+    name: 'tlm_user',
     proxy: true,
     resave: true,
     saveUninitialized: true

@@ -8,7 +8,7 @@ const getTodoList = (req, res) => {
   const id = req.user._id;
   Todo.find({ uid: id }, function (err, data) {
     if (err) {
-      return console.error(err);
+      return sendErrorResponse(res, 500, err);
     }
     sendResponse(data, res);
   });
@@ -40,7 +40,7 @@ const removeTodo = (req, res) => {
     const uid = req.user._id;
     Todo.findOneAndRemove({ _id: id, uid: uid }, function (err, data) {
       if (err) {
-        return sendErrorResponse(res, 404, 'Not found');
+        return sendErrorResponse(res, 404, err);
       }
       if (!data) {
         return sendErrorResponse(res, 404, 'Not found');

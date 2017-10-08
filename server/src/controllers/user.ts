@@ -13,6 +13,10 @@ const addUser = (req, res, next) => {
 
   const errors = req.validationErrors();
 
+  if ( errors ) {
+    return sendErrorResponse(res, 500, errors);
+  }
+
   User.find({ email }, (error, user) => {
     if ( error ) {
       return sendErrorResponse(res, 500, 'Server error');
@@ -36,7 +40,6 @@ const addUser = (req, res, next) => {
             if (saveError) {
               return sendErrorResponse(res, 500, saveError);
             } else {
-              // return sendResponse(new PublicUser(newUser), res);
               login( req, res, next );
             }
           });
@@ -77,7 +80,7 @@ const checkUser = (req, res) => {
       if (err) {
         return sendErrorResponse(res, 404, err);
       }
-      sendResponse(data, res);
+      sendResponse(new PublicUser(data), res);
     });
   } else {
     return sendErrorResponse(res, 401, 'Not Authorised');
