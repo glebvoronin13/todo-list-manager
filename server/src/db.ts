@@ -9,7 +9,7 @@ const init = async () => {
         db.once('open', function() {
             // we're connected!
             resolve(true);
-            console.log('connected');
+            console.log('Mongo connected');
         });
     });
 };

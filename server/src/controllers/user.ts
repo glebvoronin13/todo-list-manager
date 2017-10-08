@@ -48,7 +48,6 @@ const addUser = (req, res, next) => {
 
 const login = (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
-    // console.log(info);
     if (err) {
       return next(err);
     }

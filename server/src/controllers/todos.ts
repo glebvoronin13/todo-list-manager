@@ -80,6 +80,9 @@ const updateTodo = (req, res) => {
       if (err) {
         return sendErrorResponse(res, 401, err);
       }
+      if (!data) {
+        return sendErrorResponse(res, 404, 'Not found');
+      }
       sendResponse(data, res);
     });
   } else {

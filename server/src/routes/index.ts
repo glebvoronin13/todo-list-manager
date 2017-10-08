@@ -9,7 +9,6 @@ const init = (app) => {
   router.use(expressValidator());
 
   router.use(function (req, res, next) {
-    console.log('Something is happening.');
     next();
   });
 
