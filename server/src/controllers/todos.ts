@@ -2,7 +2,6 @@ import Todo from '../models/Todo';
 import { sendResponse, sendErrorResponse } from '../helpers';
 
 const getTodoList = (req, res) => {
-  console.log('user', req.user);
   if (!req.user) {
     return sendErrorResponse(res, 401, 'Not Authorised');
   }
